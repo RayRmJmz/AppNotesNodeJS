@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/index.css">
+    <title>App Notes</title>
+</head>
+<body>
+    <%= message%>
+    
+    <form action="/add_note" method="POST">
+        <label for="POST-title">Title:</label>
+        <input type="text" name="title">
+        <label for="POST-body">Body:</label>
+        <input type="text" name="body">
+        <input type="submit" value="Crear nota">
+    </form>
+</body>
+</html>
