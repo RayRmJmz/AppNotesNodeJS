@@ -3,9 +3,9 @@ const chalk = require("chalk")
 const { timeEnd } = require("console")
 
 const addNote = function(title, body){
-    console.log(chalk.green.bold("Function addNote"))
+    //console.log(chalk.green.bold("Function addNote"))
     let notes = loadNotes()
-    console.log("Notes before push ", notes)
+    //console.log("Notes before push ", notes)
 
     const duplicatedNotes = notes.filter(function(note){
         return note.title === title
@@ -17,10 +17,12 @@ const addNote = function(title, body){
             body : body
         }
         notes.push(note)
-        console.log("Notes after push ", notes)
+        //console.log("Notes after push ", notes)
         saveNotes(notes)
+        return true;
     }else{
-        console.log(chalk.keyword('orange').bold("Note already exist!"))
+        //console.log(chalk.keyword('orange').bold("Note already exist!"))
+        return false;
     }
 }
 
@@ -44,31 +46,35 @@ const loadNotes = function(){
 }
 
 const removeNote = function(title){
-    console.log(chalk.red.bold("Removing note"))
+    //console.log(chalk.red.bold("Removing note"))
     let notes = loadNotes()
     //console.log(chalk.blue("Notes before remove ", notes))
-    console.log("Notes before remove ", notes)
+    //console.log("Notes before remove ", notes)
     const notesToKeep = notes.filter(function(note){
         return note.title != title
     })
 
     if(notesToKeep.length != notes.length){
         saveNotes(notesToKeep)
-        console.log(chalk.red.bold("Note removed ", title))
-        console.log(chalk.green.bold("Updated notes "))
-        console.log(notes = loadNotes())
+        //console.log(chalk.red.bold("Note removed ", title))
+        //console.log(chalk.green.bold("Updated notes "))
+        //console.log(notes = loadNotes())
+        return true;
     }else{
-        console.log(chalk.keyword('orange').bold("Title", chalk.red.underline("%s") + " doesn´t exist!"),title)
-        console.log(notes = loadNotes())
+        //console.log(chalk.keyword('orange').bold("Title", chalk.red.underline("%s") + " doesn´t exist!"),title)
+        //console.log(notes = loadNotes())
+        return false;
     }
 }
 
 const listNotes = function(){
-    console.log(chalk.green.bold("Listing notes"))
+    //console.log(chalk.green.bold("Listing notes"))
     const notes = loadNotes()
     notes.forEach(function(elemento){
         console.log(chalk.blue("Title: ") + elemento.title +  chalk.blue(" Body: ") + elemento.body)
     })
+
+    return notes
 }
 
 const readNote = function(title){
@@ -81,12 +87,11 @@ const readNote = function(title){
 
     if(!findNote){
         console.log(chalk.keyword('orange').bold("Note not found ") + chalk.yellowBright.bold(title))
+        return false;
     }else{
         console.log(findNote)
+        return findNote;
     }
-
-
-
 }
 
 const alterTitle = function(title, newTitle){
@@ -109,10 +114,33 @@ const alterTitle = function(title, newTitle){
 
 }
 
+const updateNote = function(title, body){
+    //console.log(chalk.green.bold("Searching note with title ") + chalk.yellow.bold(title))
+    let notes = loadNotes()
+
+    notes.forEach(function(elemento){
+        if (elemento.title === title){
+            elemento.body = body
+            //console.log(chalk.green.bold("Title updated to ") + chalk.yellow.bold(newTitle))
+        }
+    })
+    const oldNotes = loadNotes()
+    if (JSON.stringify(notes) !== JSON.stringify(oldNotes)){
+        saveNotes(notes)
+        console.log(loadNotes())
+        return true;
+    }else{
+        //console.log(chalk.yellow.bold("Title not found"))
+        return false;
+    }
+
+}
+
 module.exports = {
     addNote : addNote,
     removeNote : removeNote,
     listNotes : listNotes,
     readNote : readNote,
-    alterTitle : alterTitle
+    alterTitle : alterTitle,
+    updateNote : updateNote
 }

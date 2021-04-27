@@ -5,18 +5,142 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/index.css">
-    <title>App Notes</title>
+    <!-- <link rel="stylesheet" href="css/styles.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"> -->
+    <link rel="stylesheet" href="css/mystyles.css">
+    <link rel="stylesheet" href="https://bulma.io/vendor/fontawesome-free-5.15.2-web/css/all.min.css">
+    <title>Welcome App Notes</title>
 </head>
 <body>
-    <%= message%>
+
+  <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        Lenguajes web
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
     
-    <form action="/add_note" method="POST">
-        <label for="POST-title">Title:</label>
-        <input type="text" name="title">
-        <label for="POST-body">Body:</label>
-        <input type="text" name="body">
-        <input type="submit" value="Crear nota">
-    </form>
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="/">
+          Home
+        </a>
+
+      </div>
+  
+    </div>
+
+    <div id="search" class="bd-search">
+      <form action="/search" method="POST">
+        <div class="field has-addons">
+          <div class="control">
+            <input class="input is-rounded" type="text" placeholder="Find a note" name="title">
+          </div>
+          <div class="control">
+            <button class="button is-info" type="submit">Find</button>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </nav>
+
+  <div class="container is-widescreen">
+    <div class="column">
+      <article>
+          <h2 class="title">Welcome to my application</h2>
+          <p>In this app you can do the basic operations with CRUD</p>
+          <li>Create</li>
+          <li>Read</li>
+          <li>Update</li>
+          <li>Delete</li>
+      </article>
+    </div>
+  </div>
+
+  <div class="container is-max-desktop">
+    <h1 class="title is-4">Add new note</h1>
+       <h1 class="title is-5 has-text-danger"><%= message %></h1>
+    <div class="card">
+      <div class="card-content">
+
+        <form action="/add_note" method="POST">
+  
+          <div class="field">
+  
+            <div class="columns">
+              <div class="column">
+                <label class="label" for="title">Title</label>
+                <div class="control">
+                  <input class="input" type="text" name="title" placeholder="Type your title note" required> 
+                </div>
+              </div>
+              <div class="column">
+                <label class="label" for="body">Body</label>
+                <div class="control">
+                  <input class="input" type="text" name="body" placeholder="Type your content body" required>
+                </div>
+              </div>
+            </div>
+            
+            <div class="control">
+              <input class="button is-link" type="submit" value="Add note">
+            </div>
+            
+          </div>
+  
+        </form>
+  
+      </div>
+    </div>
+    
+    
+  </div>
+  <br>
+  <div class="container is-max-desktop">
+    <h1 class="title is-1">Listing notes</h1>
+    <table class="table is-narrow is-fullwidth">
+      <tr>
+        <th>Title</th>
+        <th>Body</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+      <% notes_array.forEach(function(notes){ %>
+          <tr>
+            <td><%= notes.title %></td>
+            <td><%= notes.body %></td>
+            <td>
+              <form action="/updateNote" method="POST">
+                <input type="hidden" name="title" value="<%= notes.title %>">
+                <input type="hidden" name="body" value="<%= notes.body %>">
+                <button class="button is-primary" type="submit">Update</button>
+              </form>
+            </td>
+            <td>
+              <form action="/deleteNote" method="POST">
+                <input type="hidden" name="title" value="<%= notes.title %>">
+                <button class="button is-danger" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+      <% }); %>
+    </table>
+  </div>
+
+
+    <footer class="footer">
+      <div class="content">
+        <p>© 2021 Tecnológico Nacional de MéxicoInstituto Tecnológico de Colima</p>
+        <p>Author: Raymundo Ramos Jimenez</p>
+      </div>
+    </footer>
+    
 </body>
 </html>

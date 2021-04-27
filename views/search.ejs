@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <link rel="stylesheet" href="css/styles.css"> -->
+    <link rel="stylesheet" href="https://bulma.io/vendor/fontawesome-free-5.15.2-web/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <title>Welcome App Notes</title>
+</head>
+<body>
+
+  <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        Lenguajes web
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="/">
+          Home
+        </a>
+
+      </div>
+  
+    </div>
+    <div id="search" class="bd-search">
+      <form action="/search" method="POST">
+        <div class="field has-addons">
+          <div class="control">
+            <input class="input is-rounded" type="text" placeholder="Find a note" name="title">
+          </div>
+          <div class="control">
+            <button class="button is-info" type="submit">Find</button>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </nav>
+    <br>  
+
+  <div class="container is-max-desktop">
+      
+    <div class="card">
+      <div class="card-content">
+        <h1 class="title is-1">Result of search</h1>
+        <h1 class="title is-2">Title:  <%= retrieve.title %></h1>
+        <h1 class="title is-2">Body: <%= retrieve.body %></h1>
+        <a class="button is-primary" href="/">Back home</a>
+      </div>
+    </div>
+    
+  </div>
+
+    <footer class="footer">
+      <div class="content">
+        <p>© 2021 Tecnológico Nacional de MéxicoInstituto Tecnológico de Colima</p>
+        <p>Author: Raymundo Ramos Jimenez</p>
+      </div>
+    </footer>
+    
+</body>
+</html>
